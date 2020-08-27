@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function validaCPF() {
+        var cpf = prompt("Digite um CPF:");
+        var primeiroDigitoVerificador;
+        var segundoDigitoVerificador;
+
+        if (cpf.length !== 11) {
+          alert("CPF Inválido.");
+          return;
+        }
+
+        var primeiros9Digitos = cpf.substring(0, 9);
+        var somaMultiplicacao = 0;
+        var multiplicador = 2;
+        for (let i = primeiros9Digitos.length - 1; i >= 0; i--) {
+          let digito = primeiros9Digitos.charAt(i);
+          let multiplicacao = digito * multiplicador;
+          somaMultiplicacao += multiplicacao;
+          multiplicador++;
+        }
+        var resto = somaMultiplicacao % 11;
+        if (resto < 2) {
+          primeiroDigitoVerificador = 0;
+        } else {
+          primeiroDigitoVerificador = 11 - resto;
+        }
+
+        var primeiros9DigitosComVerificador =
+          primeiros9Digitos + primeiroDigitoVerificador;
+        somaMultiplicacao = 0;
+        multiplicador = 2;
+        for (let i = primeiros9DigitosComVerificador.length - 1; i >= 0; i--) {
+          let digito = primeiros9DigitosComVerificador.charAt(i);
+          let multiplicacao = digito * multiplicador;
+          somaMultiplicacao += multiplicacao;
+          multiplicador++;
+        }
+        resto = somaMultiplicacao % 11;
+        if (resto < 2) {
+          segundoDigitoVerificador = 0;
+        } else {
+          segundoDigitoVerificador = 11 - resto;
+        }
+
+        var cpfCalculado =
+          primeiros9Digitos +
+          primeiroDigitoVerificador +
+          segundoDigitoVerificador;
+        if (cpfCalculado == cpf) {
+          alert("CPF Válido");
+        } else {
+          alert("CPF Inválido");
+        }
+      }
+
+      validaCPF();
+    </script>
+  </body>
+</html>
